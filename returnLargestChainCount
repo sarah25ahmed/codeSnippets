@@ -1,0 +1,51 @@
+# worst case: O(n^2) time, O( where n is the number of key/value pairs. 
+# best case: O(n) time 
+
+
+def returnLargestChainCount(inputDict):
+    if not inputDict: # if the inputDict is empty, return 0
+        return 0
+        
+    
+    largestCount = 2  # keep track of the largest chain count as you find them, initialized to 2
+    
+    for key,value in inputDict.items():  # iterate thru all pairs
+        nextKey = value
+        currentCount = 1  # keep track of current chain count
+        currentChain = {}  # keep track of nums in current chain
+        while nextKey in inputDict.keys(): 
+            currentChain[nextKey] = True
+            currentCount += 1
+            nextKey = inputDict[nextKey]  # set nextKey to the value of the next pair
+            if nextKey in currentChain.keys(): #break out of an infinite loop
+                currentCount -= 2
+                break
+        currentCount += 1  # add last value of chain to count
+        if currentCount > largestCount:
+            largestCount = currentCount
+    
+    return largestCount
+
+# 4->10->12->8->7 count: 5
+print(returnLargestChainCount({
+    1:2,
+    2:3,
+    3:5,
+    6:9,
+    9:11,
+    4:10,
+    10:12,
+    12:8,
+    8:7
+}))
+
+# example of infinite loop
+# longest chain is 3->5->8->4 count: 4
+print(returnLargestChainCount({
+    3:5, 
+    5:8, 
+    8:4, 
+    4:3, 
+    2:1, 
+    9:7
+}))
