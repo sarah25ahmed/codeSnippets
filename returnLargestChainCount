@@ -1,5 +1,5 @@
-# worst case: O(n^2) time, O( where n is the number of key/value pairs. 
-# best case: O(n) time 
+# o(n^2) time where n is the number of key/value pairs
+# O(n) space (worst case)
 
 
 def returnLargestChainCount(inputDict):
